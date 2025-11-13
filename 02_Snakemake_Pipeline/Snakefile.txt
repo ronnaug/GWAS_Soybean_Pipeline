@@ -1,0 +1,53 @@
+# --- Настройка общих переменных ---
+VCF_IN = "test_data/test_data.vcf"
+PHENO_IN = "test_data/test_data.tsv"
+VCF_FILTERED = "soybean_filtered.vcf"
+OUTPUT_PREFIX = "gwas_results"
+
+# --- Шаг 1: Фильтрация VCF (Используем VCFtools) ---
+rule filter_vcf:
+    input:
+        vcf = VCF_IN
+    output:
+        vcf_recode = VCF_FILTERED
+    params:
+        prefix = "soybean_filtered"
+    shell:
+        """
+        # Фильтрация по MAF > 0.05 и Missingness < 0.1
+        vcftools --vcf {input.vcf} \
+            --maf 0.05 \
+            --max-missing 0.9 \
+            --recode \
+            --recode-INFO-all \
+            --out {params.prefix}
+        
+        # Переименование файла
+        mv {params.prefix}.recode.vcf {output.vcf_recode}
+        """
+
+# --- Шаг 2: GWAS (Используем Python-скрипт) ---
+rule run_gwas:
+    input:
+        vcf = VCF_FILTERED,
+        pheno = PHENO_IN
+    output:
+        results = f"{OUTPUT_PREFIX}.gwas.csv",
+        pca = f"{OUTPUT_PREFIX}.pca.csv",
+        manhattan = f"{OUTPUT_PREFIX}.manhattan.png",
+        qqplot = f"{OUTPUT_PREFIX}.qq.png"
+    log:
+        "logs/gwas.log"
+    shell:
+        """
+        mkdir -p logs
+        python gwas_script.py {input.vcf} {input.pheno} {OUTPUT_PREFIX} > {log} 2>&1
+        """
+
+# --- Шаг 3: Финальная Цель ---
+rule all:
+    input:
+        f"{OUTPUT_PREFIX}.gwas.csv",
+        f"{OUTPUT_PREFIX}.pca.csv",
+        f"{OUTPUT_PREFIX}.manhattan.png",
+        f"{OUTPUT_PREFIX}.qq.png"
