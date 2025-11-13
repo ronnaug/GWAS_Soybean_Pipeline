@@ -1,4 +1,4 @@
-# --- Настройка общих переменных ---
+# ----- Настройка общих переменных ----- 
 VCF_IN = "test_data/test_data.vcf"
 PHENO_IN = "test_data/test_data.tsv"
 VCF_FILTERED = "soybean_filtered.vcf"

@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 import statsmodels.api as sm
 
-# -----------------
+# ------------------
 # 1. Параметры и Загрузка Данных
 # -----------------
 
