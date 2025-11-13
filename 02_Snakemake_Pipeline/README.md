@@ -18,3 +18,4 @@
 2.  **Python-библиотеки:** `scikit-allel`, `scikit-learn`, `numpy`, `pandas`, `matplotlib`, `statsmodels`, `scipy`.
 
 ### 💾 Структура Папки
+### Рабочая версия
