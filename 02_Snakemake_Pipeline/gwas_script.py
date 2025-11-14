@@ -70,7 +70,7 @@ Y = merged_df['Yield'].values
 P = sm.add_constant(merged_df[['PC1', 'PC2', 'PC3', 'PC4', 'PC5']].values)
 num_snp = G_final.shape[1]
 
-print(f"✅ Синхронизация завершена. Для GWAS используется {merged_df.shape[0]} образцов и {num_snp} SNP.")
+print(f" Синхронизация завершена. Для GWAS используется {merged_df.shape[0]} образцов и {num_snp} SNP.")
 
 # -----------------
 # 3. GWAS (OLS с PCA)
@@ -94,7 +94,7 @@ gwas_res['SNP'] = [f'SNP_{i}' for i in range(num_snp)]
 
 # Сохранение результатов GWAS
 gwas_res.to_csv(f'{OUTPUT_PREFIX}.gwas.csv', index=False)
-print(f"💾 Результаты GWAS сохранены в {OUTPUT_PREFIX}.gwas.csv")
+print(f" Результаты GWAS сохранены в {OUTPUT_PREFIX}.gwas.csv")
 
 # -----------------
 # 4. Визуализация (Сохранение файлов PNG)
@@ -128,7 +128,7 @@ def manhattan_plot(df, title, filename):
     plt.close()
 
 manhattan_plot(gwas_res.copy(), 'Manhattan Plot for Yield (GWAS-OLS with PCA)', f'{OUTPUT_PREFIX}.manhattan.png')
-print(f"💾 Manhattan Plot сохранен в {OUTPUT_PREFIX}.manhattan.png")
+print(f" Manhattan Plot сохранен в {OUTPUT_PREFIX}.manhattan.png")
 
 
 # --- 4.2. QQ Plot ---
@@ -156,7 +156,7 @@ def qq_plot(pvalues, title, filename):
     plt.close()
 
 qq_plot(gwas_res['P'].values, 'QQ Plot for Yield (GWAS-OLS with PCA)', f'{OUTPUT_PREFIX}.qq.png')
-print(f"💾 QQ Plot сохранен в {OUTPUT_PREFIX}.qq.png")
+print(f" QQ Plot сохранен в {OUTPUT_PREFIX}.qq.png")
 
 
 # --- 5. Сохранение PC-координат ---
