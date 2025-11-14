@@ -25,7 +25,6 @@ rule filter_vcf:
         # Переименование файла
         mv {params.prefix}.recode.vcf {output.vcf_recode}
         """
-
 # --- Шаг 2: GWAS (Используем Python-скрипт) ---
 rule run_gwas:
     input:
@@ -43,7 +42,6 @@ rule run_gwas:
         mkdir -p logs
         python gwas_script.py {input.vcf} {input.pheno} {OUTPUT_PREFIX} > {log} 2>&1
         """
-
 # --- Шаг 3: Финальная Цель ---
 rule all:
     input:
