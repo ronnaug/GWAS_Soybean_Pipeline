@@ -17,5 +17,9 @@
 1.  **Программы (CLI):** `Snakemake`, `vcftools`.
 2.  **Python-библиотеки:** `scikit-allel`, `scikit-learn`, `numpy`, `pandas`, `matplotlib`, `statsmodels`, `scipy`.
 
+### # Рекомендованный метод запуска:
+`snakemake --cores 1 gwas_results.qq.png`
+## Использование явного указания конечной цели (gwas_results.qq.png) гарантирует корректное выполнение всех шагов пайплайна.
+
 ###  Структура Папки
 ### Рабочая версия
